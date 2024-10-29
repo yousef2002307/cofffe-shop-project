@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/v1/register:
+    post:
+      summary: 'Register a new user'
+      operationId: registerANewUser
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'User registered successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'User registered successfully'
+      tags:
+        - '1 Security'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The user's name"
+                  example: totam
+                  nullable: false
+                email:
+                  type: string
+                  description: "The user's email"
+                  example: schinner.angelita@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: "The user's password"
+                  example: LkW-ibQ7QTR
+                  nullable: false
+                phone:
+                  type: string
+                  description: "The user's phone number"
+                  example: voluptas
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+                - phone
+      security: []
+  /api/v1/login:
+    post:
+      summary: 'Login a user'
+      operationId: loginAUser
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  token: string
+                properties:
+                  token:
+                    type: string
+                    example: string
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Invalid credentials'
+                properties:
+                  message:
+                    type: string
+                    example: 'Invalid credentials'
+      tags:
+        - '1 Security'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "The user's email"
+                  example: letha.runolfsdottir@example.org
+                  nullable: false
+                password:
+                  type: string
+                  description: "The user's password"
+                  example: 'CC5h>P:'
+                  nullable: false
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/logout:
+    post:
+      summary: 'Logout a user'
+      operationId: logoutAUser
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Logged out'
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out'
+      tags:
+        - '1 Security'
+      security: []
+  /api/v1/products:
+    get:
+      summary: 'Get a paginated list of products'
+      operationId: getAPaginatedListOfProducts
+      description: "No auth required.\nIf the quantity of a product is 0 or less, you cannot buy or add it to the cart.\nPagination: add ?page parameter to the request."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "[\n   {\n     \"name\": \"Product 1\",\n     \"description\": \"Description of Product 1\",\n     \"price\": \"10.00 $\",\n     \"quantity\": 100\n   },\n   {\n     \"name\": \"Product 2\",\n     \"description\": \"Description of Product 2\",\n     \"price\": \"20.00 $\",\n     \"quantity\": 50\n   }\n ],"
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'No products found'
+                properties:
+                  message:
+                    type: string
+                    example: 'No products found'
+      tags:
+        - '2 Products'
+      security: []
+  /api/v1/menu:
+    get:
+      summary: 'Get a list of all menus'
+      operationId: getAListOfAllMenus
+      description: 'No auth required'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  menus:
+                    -
+                      id: 1
+                      name: 'Menu 1'
+                      image: images/menu1.jpg
+                      description: 'Description of Menu 1'
+                    -
+                      id: 2
+                      name: 'Menu 2'
+                      image: images/menu2.jpg
+                      description: 'Description of Menu 2'
+                  lastMenu:
+                    id: 1
+                    name: 'Menu 1'
+                    image: images/menu1.jpg
+                    description: 'Description of Menu 1'
+                properties:
+                  menus:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Menu 1'
+                        image: images/menu1.jpg
+                        description: 'Description of Menu 1'
+                      -
+                        id: 2
+                        name: 'Menu 2'
+                        image: images/menu2.jpg
+                        description: 'Description of Menu 2'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Menu 1'
+                        image:
+                          type: string
+                          example: images/menu1.jpg
+                        description:
+                          type: string
+                          example: 'Description of Menu 1'
+                  lastMenu:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Menu 1'
+                      image:
+                        type: string
+                        example: images/menu1.jpg
+                      description:
+                        type: string
+                        example: 'Description of Menu 1'
+      tags:
+        - '3 Menus'
+      security: []
+    post:
+      summary: 'Create a new menu'
+      operationId: createANewMenu
+      description: 'Admin auth required'
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Menu created successfully'
+                  data:
+                    id: 1
+                    name: 'Menu 1'
+                    image: images/menu1.jpg
+                    description: 'Description of Menu 1'
+                properties:
+                  message:
+                    type: string
+                    example: 'Menu created successfully'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Menu 1'
+                      image:
+                        type: string
+                        example: images/menu1.jpg
+                      description:
+                        type: string
+                        example: 'Description of Menu 1'
+      tags:
+        - '3 Menus'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The menu's name"
+                  example: ipsa
+                  nullable: false
+                image:
+                  type: image
+                  description: "The menu's image"
+                  example: recusandae
+                  nullable: false
+                description:
+                  type: string
+                  description: "The menu's description"
+                  example: 'Sequi voluptas quis omnis itaque sunt iure earum.'
+                  nullable: false
+              required:
+                - name
+                - image
+                - description
+      security: []
+  '/api/v1/menu/{id}':
+    get:
+      summary: 'Get a single menu by ID'
+      operationId: getASingleMenuByID
+      description: 'No auth required'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 1
+                  name: 'Menu 1'
+                  image: images/menu1.jpg
+                  description: 'Description of Menu 1'
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: 'Menu 1'
+                  image:
+                    type: string
+                    example: images/menu1.jpg
+                  description:
+                    type: string
+                    example: 'Description of Menu 1'
+      tags:
+        - '3 Menus'
+      security: []
+    put:
+      summary: 'Update a single menu by ID'
+      operationId: updateASingleMenuByID
+      description: 'Admin auth required'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Menu updated successfully'
+                  data:
+                    id: 1
+                    name: 'Menu 1'
+                    image: images/menu1.jpg
+                    description: 'Description of Menu 1'
+                properties:
+                  message:
+                    type: string
+                    example: 'Menu updated successfully'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Menu 1'
+                      image:
+                        type: string
+                        example: images/menu1.jpg
+                      description:
+                        type: string
+                        example: 'Description of Menu 1'
+      tags:
+        - '3 Menus'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "The menu's name"
+                  example: dolores
+                  nullable: false
+                image:
+                  type: image
+                  description: "The menu's image"
+                  example: tenetur
+                  nullable: false
+                description:
+                  type: string
+                  description: "The menu's description"
+                  example: 'Possimus nobis et ea id repellat nisi in.'
+                  nullable: false
+              required:
+                - name
+                - image
+                - description
+      security: []
+    delete:
+      summary: 'Delete a single menu by ID'
+      operationId: deleteASingleMenuByID
+      description: 'Admin auth required'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Menu deleted successfully'
+                properties:
+                  message:
+                    type: string
+                    example: 'Menu deleted successfully'
+      tags:
+        - '3 Menus'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the menu.'
+        example: animi
+        required: true
+        schema:
+          type: string
+  /api/r:
+    get:
+      summary: ''
+      operationId: getApiR
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: integer
+                example: 2
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/r:
+    get:
+      summary: ''
+      operationId: getApiV1R
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: '1 Security'
+    description: "\nAPIs for user registration and login and logout"
+  -
+    name: '2 Products'
+    description: "\nAPIs for viewing products"
+  -
+    name: '3 Menus'
+    description: "\nAPIs for managing menus"
+  -
+    name: Endpoints
+    description: ''

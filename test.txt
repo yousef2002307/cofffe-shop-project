@@ -1,0 +1,22 @@
+{
+    "name" : "youeesef", 
+   
+   
+    "phone" : "01040537892",
+    "email" : "admin@admin.com",
+    "password" : "admin1234",
+    "password_confirmation" : "admin1234"
+
+}
+
+
+{
+    "name" : "youeesef", 
+   
+   
+    "phone" : "01040537892",
+    "email" : "user@user.com",
+    "password" : "user1234",
+    "password_confirmation" : "user1234"
+
+}
